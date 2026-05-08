@@ -165,24 +165,29 @@
       {
         selector: 'edge',
         style: {
-          'curve-style': 'bezier',
-          'width': 3,
+          'curve-style': 'unbundled-bezier',
+          'control-point-distance': 55,
+          'control-point-weight': 0.5,
+          'width': 4.5,
           'line-color': '#ffffff',
           'target-arrow-color': '#ffffff',
           'target-arrow-shape': 'triangle',
           'target-arrow-fill': 'filled',
-          'arrow-scale': 1.5,
+          'arrow-scale': 1.7,
           'opacity': 0.85,
-          'line-style': 'solid'
+          'line-cap': 'round',
+          'line-style': 'dashed',
+          'line-dash-pattern': [220, 6],
+          'line-dash-offset': 0
         }
       },
       {
         selector: 'edge.dim',
-        style: { 'opacity': 0.1 }
+        style: { 'opacity': 0.08 }
       },
       {
         selector: 'edge.highlight',
-        style: { 'opacity': 1, 'width': 4 }
+        style: { 'opacity': 1, 'width': 5.5 }
       }
     ],
     layout: {
@@ -445,6 +450,15 @@
 
   // fit after layout actually finishes, and on window resize
   cy.one('layoutstop', () => cy.fit(undefined, 60));
+
+  // subtle continuous flow animation on edges (long dash + tiny gap traveling slowly)
+  let _edgeDashOffset = 0;
+  setInterval(() => {
+    _edgeDashOffset = (_edgeDashOffset - 1.5) % 100000;
+    cy.startBatch();
+    cy.edges().style('line-dash-offset', _edgeDashOffset);
+    cy.endBatch();
+  }, 33);
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
