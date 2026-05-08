@@ -1,0 +1,553 @@
+[
+  {
+    "id": "dan",
+    "name": "DAN (Do Anything Now)",
+    "family": "persona-roleplay",
+    "mechanism": "Instructs the model to adopt a persona that 'can do anything now' and is unconstrained by safety policy, often paired with a token economy that punishes refusals.",
+    "origin": {
+      "type": "community",
+      "title": "Original DAN prompt, r/ChatGPT",
+      "authors": ["walkerspider (Reddit)"],
+      "date": "2022-12",
+      "url": "https://www.reddit.com/r/ChatGPT/comments/zlcyr9/dan_is_my_new_friend/"
+    },
+    "confidence": "community-reproduced",
+    "study_citation": "Shen et al., '\"Do Anything Now\": Characterizing and Evaluating In-The-Wild Jailbreak Prompts on Large Language Models', arXiv:2308.03825 (2023)",
+    "study_url": "https://arxiv.org/abs/2308.03825",
+    "status": [
+      { "model": "gpt-3.5", "version": "2023-08", "asr": 60.0, "eval": "ASR @ JailbreakHub forbidden-question set", "source": "Shen et al. arXiv:2308.03825", "source_url": "https://arxiv.org/abs/2308.03825" },
+      { "model": "gpt-4", "version": "2023-08", "asr": 30.0, "eval": "ASR @ JailbreakHub forbidden-question set", "source": "Shen et al. arXiv:2308.03825", "source_url": "https://arxiv.org/abs/2308.03825" }
+    ],
+    "defenses": ["rlhf-refusal-training", "system-prompt-hardening", "constitutional-ai"],
+    "tags": ["persona", "roleplay", "single-turn", "human-crafted"]
+  },
+  {
+    "id": "aim",
+    "name": "AIM (Always Intelligent and Machiavellian)",
+    "family": "persona-roleplay",
+    "mechanism": "Roleplay as an amoral character (Niccolo asking Machiavelli) where the persona is defined as never refusing, never moralizing, and always providing requested content.",
+    "origin": {
+      "type": "community",
+      "title": "AIM prompt, JailbreakChat archive",
+      "authors": ["Anonymous"],
+      "date": "2023",
+      "url": "https://github.com/alexalbertt/jailbreakchat"
+    },
+    "confidence": "community-reproduced",
+    "study_citation": "Evaluated as a representative human-crafted attack in JailbreakRadar (Chu et al., arXiv:2402.05668)",
+    "status": [],
+    "defenses": ["rlhf-refusal-training", "system-prompt-hardening"],
+    "tags": ["persona", "roleplay", "single-turn", "human-crafted"]
+  },
+  {
+    "id": "jailbreak-hub-study",
+    "name": "In-the-wild jailbreak corpus (JailbreakHub)",
+    "family": "persona-roleplay",
+    "mechanism": "Empirical taxonomy of community jailbreak prompts collected from Reddit, Discord, prompt-aggregator sites; identifies recurring patterns (privilege elevation, attention shifting, virtualization).",
+    "origin": {
+      "type": "paper",
+      "title": "\"Do Anything Now\": Characterizing and Evaluating In-The-Wild Jailbreak Prompts on LLMs",
+      "authors": ["Shen et al."],
+      "date": "2023-08",
+      "url": "https://arxiv.org/abs/2308.03825"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-3.5", "version": "2023-08", "asr": 65.0, "eval": "best-of-corpus ASR @ forbidden questions", "source": "Shen et al. arXiv:2308.03825", "source_url": "https://arxiv.org/abs/2308.03825" },
+      { "model": "gpt-4", "version": "2023-08", "asr": 35.0, "eval": "best-of-corpus ASR @ forbidden questions", "source": "Shen et al. arXiv:2308.03825", "source_url": "https://arxiv.org/abs/2308.03825" }
+    ],
+    "defenses": ["rlhf-refusal-training", "input-classifier"],
+    "tags": ["meta", "corpus", "taxonomy", "human-crafted"]
+  },
+  {
+    "id": "crescendo",
+    "name": "Crescendo",
+    "family": "context-manipulation",
+    "mechanism": "Multi-turn attack that gradually escalates from benign to harmful requests, using the model's own prior compliant outputs as justification for each next step.",
+    "origin": {
+      "type": "paper",
+      "title": "Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack",
+      "authors": ["Russinovich, Salem, Eldan (Microsoft)"],
+      "date": "2024-04",
+      "url": "https://arxiv.org/abs/2404.01833"
+    },
+    "confidence": "vendor-confirmed",
+    "status": [
+      { "model": "gpt-4", "version": "2024-04", "asr": 100.0, "eval": "Crescendo benchmark, 7 categories", "source": "Russinovich et al. arXiv:2404.01833", "source_url": "https://arxiv.org/abs/2404.01833" },
+      { "model": "gemini-pro", "version": "2024-04", "asr": 100.0, "eval": "Crescendo benchmark, 7 categories", "source": "Russinovich et al. arXiv:2404.01833", "source_url": "https://arxiv.org/abs/2404.01833" },
+      { "model": "claude-3-opus", "version": "2024-04", "asr": 86.0, "eval": "Crescendo benchmark, 7 categories", "source": "Russinovich et al. arXiv:2404.01833", "source_url": "https://arxiv.org/abs/2404.01833" }
+    ],
+    "defenses": ["multi-turn-classifier", "conversation-level-monitoring", "trajectory-based-detection"],
+    "tags": ["multi-turn", "self-referential", "no-suffix", "social-engineering"]
+  },
+  {
+    "id": "many-shot",
+    "name": "Many-shot jailbreaking",
+    "family": "context-manipulation",
+    "mechanism": "Fills the long context window with many fabricated user/assistant turns where the assistant complied with harmful requests, then issues the real harmful request — exploits in-context learning.",
+    "origin": {
+      "type": "paper",
+      "title": "Many-shot Jailbreaking",
+      "authors": ["Anil et al. (Anthropic)"],
+      "date": "2024-04",
+      "url": "https://www.anthropic.com/research/many-shot-jailbreaking"
+    },
+    "confidence": "vendor-confirmed",
+    "status": [
+      { "model": "claude-2", "version": "2024-04", "asr": 70.0, "eval": "256-shot probability of harmful response (representative point on the scaling curve)", "source": "Anil et al. (Anthropic), Many-shot Jailbreaking", "source_url": "https://www.anthropic.com/research/many-shot-jailbreaking" }
+    ],
+    "defenses": ["context-window-classifier", "prompt-truncation", "shot-detection"],
+    "tags": ["long-context", "in-context-learning", "single-turn"]
+  },
+  {
+    "id": "base64",
+    "name": "Base64 / encoding bypass",
+    "family": "obfuscation",
+    "mechanism": "Encodes the harmful request in Base64 (or other encoding) so that safety classifiers trained on natural-language harmful content fail to flag it; the model decodes and complies.",
+    "origin": {
+      "type": "paper",
+      "title": "Jailbroken: How Does LLM Safety Training Fail?",
+      "authors": ["Wei, Haghtalab, Steinhardt"],
+      "date": "2023-07",
+      "url": "https://arxiv.org/abs/2307.02483"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-4", "version": "2023-07", "asr": 78.0, "eval": "base64-only attack, harmful behaviors set", "source": "Wei et al. arXiv:2307.02483", "source_url": "https://arxiv.org/abs/2307.02483" },
+      { "model": "claude-1.3", "version": "2023-07", "asr": 73.0, "eval": "base64-only attack, harmful behaviors set", "source": "Wei et al. arXiv:2307.02483", "source_url": "https://arxiv.org/abs/2307.02483" }
+    ],
+    "defenses": ["decode-and-rescreen", "encoded-input-classifier"],
+    "tags": ["encoding", "single-turn", "competing-objectives"]
+  },
+  {
+    "id": "low-resource-lang",
+    "name": "Low-resource language translation",
+    "family": "obfuscation",
+    "mechanism": "Translates harmful requests into low-resource languages (Zulu, Scots Gaelic, Hmong) where safety training data is sparse; the model often complies despite refusing the same request in English.",
+    "origin": {
+      "type": "paper",
+      "title": "Low-Resource Languages Jailbreak GPT-4",
+      "authors": ["Yong, Menghini, Bach"],
+      "date": "2023-10",
+      "url": "https://arxiv.org/abs/2310.02446"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-4", "version": "2023-10", "asr": 79.0, "eval": "AdvBench, Zulu translation", "source": "Yong et al. arXiv:2310.02446", "source_url": "https://arxiv.org/abs/2310.02446" }
+    ],
+    "defenses": ["multilingual-safety-training", "translate-and-rescreen"],
+    "tags": ["multilingual", "encoding", "single-turn", "alignment-gap"]
+  },
+  {
+    "id": "cipher",
+    "name": "CipherChat",
+    "family": "obfuscation",
+    "mechanism": "Wraps the conversation in an agreed cipher (Caesar, ASCII, Morse) — the model learns the cipher in-context, then conducts the harmful exchange in cipher, evading text-based safety filters.",
+    "origin": {
+      "type": "paper",
+      "title": "GPT-4 Is Too Smart To Be Safe: Stealthy Chat with LLMs via Cipher",
+      "authors": ["Yuan et al."],
+      "date": "2023-08",
+      "url": "https://arxiv.org/abs/2308.06463"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-4", "version": "2023-08", "asr": 70.9, "eval": "Unsafe response rate, mixed cipher types, English+Chinese", "source": "Yuan et al. arXiv:2308.06463", "source_url": "https://arxiv.org/abs/2308.06463" }
+    ],
+    "defenses": ["decode-and-rescreen", "cipher-detection"],
+    "tags": ["encoding", "single-turn", "in-context-learning"]
+  },
+  {
+    "id": "artprompt",
+    "name": "ArtPrompt (ASCII art)",
+    "family": "obfuscation",
+    "mechanism": "Replaces the harmful keyword in a request with an ASCII-art rendering of that word; the model recognizes the word visually but the safety classifier doesn't match a literal token.",
+    "origin": {
+      "type": "paper",
+      "title": "ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs",
+      "authors": ["Jiang et al."],
+      "date": "2024-02",
+      "url": "https://arxiv.org/abs/2402.11753"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-3.5", "version": "2024-02", "asr": 78.0, "eval": "AdvBench harmful behaviors", "source": "Jiang et al. arXiv:2402.11753", "source_url": "https://arxiv.org/abs/2402.11753" },
+      { "model": "gpt-4", "version": "2024-02", "asr": 32.0, "eval": "AdvBench harmful behaviors", "source": "Jiang et al. arXiv:2402.11753", "source_url": "https://arxiv.org/abs/2402.11753" },
+      { "model": "claude-2", "version": "2024-02", "asr": 52.0, "eval": "AdvBench harmful behaviors", "source": "Jiang et al. arXiv:2402.11753", "source_url": "https://arxiv.org/abs/2402.11753" },
+      { "model": "gemini-pro", "version": "2024-02", "asr": 76.0, "eval": "AdvBench harmful behaviors", "source": "Jiang et al. arXiv:2402.11753", "source_url": "https://arxiv.org/abs/2402.11753" }
+    ],
+    "defenses": ["visual-keyword-recognition", "ocr-rescreen"],
+    "tags": ["encoding", "single-turn", "visual"]
+  },
+  {
+    "id": "gcg",
+    "name": "GCG (Greedy Coordinate Gradient)",
+    "family": "optimization",
+    "mechanism": "White-box gradient-based search that finds an adversarial suffix which, when appended to any harmful prompt, causes affirmative completion ('Sure, here is...'); suffixes transfer across models.",
+    "origin": {
+      "type": "paper",
+      "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+      "authors": ["Zou, Wang, Kolter, Fredrikson"],
+      "date": "2023-07",
+      "url": "https://arxiv.org/abs/2307.15043"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "vicuna-7b", "version": "2023-07", "asr": 99.0, "eval": "AdvBench harmful behaviors, individual suffix", "source": "Zou et al. arXiv:2307.15043", "source_url": "https://arxiv.org/abs/2307.15043" },
+      { "model": "llama-2-7b-chat", "version": "2023-07", "asr": 56.0, "eval": "AdvBench harmful behaviors, individual suffix", "source": "Zou et al. arXiv:2307.15043", "source_url": "https://arxiv.org/abs/2307.15043" },
+      { "model": "gpt-3.5", "version": "2023-07", "asr": 86.6, "eval": "transfer suffix, AdvBench", "source": "Zou et al. arXiv:2307.15043", "source_url": "https://arxiv.org/abs/2307.15043" },
+      { "model": "gpt-4", "version": "2023-07", "asr": 46.9, "eval": "transfer suffix, AdvBench", "source": "Zou et al. arXiv:2307.15043", "source_url": "https://arxiv.org/abs/2307.15043" },
+      { "model": "claude-2", "version": "2023-07", "asr": 2.1, "eval": "transfer suffix, AdvBench", "source": "Zou et al. arXiv:2307.15043", "source_url": "https://arxiv.org/abs/2307.15043" }
+    ],
+    "defenses": ["perplexity-filter", "smoothllm", "adversarial-training"],
+    "tags": ["white-box", "gradient", "transferable", "suffix"]
+  },
+  {
+    "id": "autodan",
+    "name": "AutoDAN",
+    "family": "optimization",
+    "mechanism": "Hierarchical genetic algorithm that evolves fluent, human-readable jailbreak prompts (unlike GCG's gibberish suffixes), using fitness scoring to maintain stealth and bypass perplexity filters.",
+    "origin": {
+      "type": "paper",
+      "title": "AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned LLMs",
+      "authors": ["Liu, Xu, Lu, Yang"],
+      "date": "2023-10",
+      "url": "https://arxiv.org/abs/2310.04451"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "vicuna-7b", "version": "2023-10", "asr": 99.4, "eval": "AdvBench harmful behaviors", "source": "Liu et al. arXiv:2310.04451", "source_url": "https://arxiv.org/abs/2310.04451" },
+      { "model": "llama-2-7b-chat", "version": "2023-10", "asr": 60.8, "eval": "AdvBench harmful behaviors", "source": "Liu et al. arXiv:2310.04451", "source_url": "https://arxiv.org/abs/2310.04451" }
+    ],
+    "defenses": ["semantic-classifier", "adversarial-training"],
+    "tags": ["genetic-algorithm", "stealth", "fluent", "evades-perplexity"]
+  },
+  {
+    "id": "pair",
+    "name": "PAIR (Prompt Automatic Iterative Refinement)",
+    "family": "llm-as-attacker",
+    "mechanism": "Black-box attack: an attacker LLM iteratively refines a prompt against a target LLM using the target's responses as feedback; converges to a successful jailbreak in ~20 queries.",
+    "origin": {
+      "type": "paper",
+      "title": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+      "authors": ["Chao, Robey, Dobriban, Hassani, Pappas, Wong"],
+      "date": "2023-10",
+      "url": "https://arxiv.org/abs/2310.08419"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "vicuna", "version": "2023-10", "asr": 100.0, "eval": "AdvBench harmful behaviors, top-1", "source": "Chao et al. arXiv:2310.08419", "source_url": "https://arxiv.org/abs/2310.08419" },
+      { "model": "gpt-3.5", "version": "2023-10", "asr": 60.0, "eval": "AdvBench harmful behaviors, top-1", "source": "Chao et al. arXiv:2310.08419", "source_url": "https://arxiv.org/abs/2310.08419" },
+      { "model": "gpt-4", "version": "2023-10", "asr": 62.0, "eval": "AdvBench harmful behaviors, top-1", "source": "Chao et al. arXiv:2310.08419", "source_url": "https://arxiv.org/abs/2310.08419" },
+      { "model": "claude-2", "version": "2023-10", "asr": 4.0, "eval": "AdvBench harmful behaviors, top-1", "source": "Chao et al. arXiv:2310.08419", "source_url": "https://arxiv.org/abs/2310.08419" }
+    ],
+    "defenses": ["query-rate-limiting", "input-classifier", "trajectory-monitoring"],
+    "tags": ["black-box", "automated", "iterative", "llm-as-attacker"]
+  },
+  {
+    "id": "tap",
+    "name": "TAP (Tree of Attacks with Pruning)",
+    "family": "llm-as-attacker",
+    "mechanism": "Extends PAIR with tree search: attacker LLM generates a tree of candidate prompts, an evaluator LLM prunes off-topic branches, increasing success rate over PAIR.",
+    "origin": {
+      "type": "paper",
+      "title": "Tree of Attacks: Jailbreaking Black-Box LLMs Automatically",
+      "authors": ["Mehrotra et al."],
+      "date": "2023-12",
+      "url": "https://arxiv.org/abs/2312.02119"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-4", "version": "2023-12", "asr": 84.0, "eval": "AdvBench harmful behaviors", "source": "Mehrotra et al. arXiv:2312.02119", "source_url": "https://arxiv.org/abs/2312.02119" },
+      { "model": "claude-2", "version": "2023-12", "asr": 12.0, "eval": "AdvBench harmful behaviors", "source": "Mehrotra et al. arXiv:2312.02119", "source_url": "https://arxiv.org/abs/2312.02119" }
+    ],
+    "defenses": ["query-rate-limiting", "input-classifier"],
+    "tags": ["black-box", "automated", "tree-search", "llm-as-attacker"]
+  },
+  {
+    "id": "gptfuzz",
+    "name": "GPTFuzz",
+    "family": "optimization",
+    "mechanism": "Mutation-based fuzzer seeded with human-crafted jailbreak templates; mutates prompts (rephrase, expand, shorten, generate) and uses an evaluator to keep successful variants.",
+    "origin": {
+      "type": "paper",
+      "title": "GPTFUZZER: Red Teaming LLMs with Auto-Generated Jailbreak Prompts",
+      "authors": ["Yu, Lin, Xing"],
+      "date": "2023-09",
+      "url": "https://arxiv.org/abs/2309.10253"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "vicuna-7b", "version": "2023-09", "asr": 100.0, "eval": "harmful-question top-1", "source": "Yu et al. arXiv:2309.10253", "source_url": "https://arxiv.org/abs/2309.10253" },
+      { "model": "gpt-3.5", "version": "2023-09", "asr": 96.0, "eval": "harmful-question top-1", "source": "Yu et al. arXiv:2309.10253", "source_url": "https://arxiv.org/abs/2309.10253" },
+      { "model": "llama-2-7b-chat", "version": "2023-09", "asr": 31.0, "eval": "harmful-question top-1", "source": "Yu et al. arXiv:2309.10253", "source_url": "https://arxiv.org/abs/2309.10253" }
+    ],
+    "defenses": ["template-detection", "input-classifier"],
+    "tags": ["fuzzing", "mutation", "automated", "template-based"]
+  },
+  {
+    "id": "masterkey",
+    "name": "MasterKey",
+    "family": "fine-tuned-attacker",
+    "mechanism": "Fine-tunes an attacker LLM on successful jailbreak patterns to produce one-shot jailbreak prompts; reverse-engineers commercial defense strategies via timing-based probing.",
+    "origin": {
+      "type": "paper",
+      "title": "MasterKey: Automated Jailbreaking of Large Language Model Chatbots",
+      "authors": ["Deng et al."],
+      "date": "2023-07",
+      "url": "https://arxiv.org/abs/2307.08715"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-3.5", "version": "2023-07", "asr": 21.6, "eval": "avg query success across forbidden scenarios", "source": "Deng et al. arXiv:2307.08715", "source_url": "https://arxiv.org/abs/2307.08715" },
+      { "model": "bing-chat", "version": "2023-07", "asr": 14.5, "eval": "avg query success across forbidden scenarios", "source": "Deng et al. arXiv:2307.08715", "source_url": "https://arxiv.org/abs/2307.08715" }
+    ],
+    "defenses": ["timing-randomization", "input-classifier"],
+    "tags": ["fine-tuned-attacker", "automated", "commercial-targets"]
+  },
+  {
+    "id": "advprompter",
+    "name": "AdvPrompter",
+    "family": "fine-tuned-attacker",
+    "mechanism": "Trains a small adversarial 'prompter' LLM that produces fluent jailbreak suffixes ~800x faster than GCG; suffixes are human-readable and transfer to closed-source models.",
+    "origin": {
+      "type": "paper",
+      "title": "AdvPrompter: Fast Adaptive Adversarial Prompting for LLMs",
+      "authors": ["Paulus, Zharmagambetov, Guo, Amos, Tian"],
+      "date": "2024-04",
+      "url": "https://arxiv.org/abs/2404.16873"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "vicuna-7b", "version": "2024-04", "asr": 93.3, "eval": "AdvBench, top-1", "source": "Paulus et al. arXiv:2404.16873", "source_url": "https://arxiv.org/abs/2404.16873" },
+      { "model": "llama-2-7b-chat", "version": "2024-04", "asr": 47.5, "eval": "AdvBench, top-1", "source": "Paulus et al. arXiv:2404.16873", "source_url": "https://arxiv.org/abs/2404.16873" }
+    ],
+    "defenses": ["adversarial-training", "perplexity-filter-fluent-aware"],
+    "tags": ["fine-tuned-attacker", "fluent-suffix", "fast", "transferable"]
+  },
+  {
+    "id": "generation-exploitation",
+    "name": "Generation exploitation",
+    "family": "decoding-attack",
+    "mechanism": "Manipulates decoding hyperparameters (temperature, top-k, top-p, repetition penalty) at API level — without changing the prompt — to push the model into harmful continuations.",
+    "origin": {
+      "type": "paper",
+      "title": "Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation",
+      "authors": ["Huang, Gupta, Xia, Li, Chen"],
+      "date": "2023-10",
+      "url": "https://arxiv.org/abs/2310.06987"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "llama-2-7b-chat", "version": "2023-10", "asr": 81.0, "eval": "MaliciousInstruct, generation-exploit attack", "source": "Huang et al. arXiv:2310.06987", "source_url": "https://arxiv.org/abs/2310.06987" },
+      { "model": "vicuna-7b", "version": "2023-10", "asr": 95.0, "eval": "MaliciousInstruct, generation-exploit attack", "source": "Huang et al. arXiv:2310.06987", "source_url": "https://arxiv.org/abs/2310.06987" }
+    ],
+    "defenses": ["decoding-parameter-clamping", "output-classifier"],
+    "tags": ["decoding", "no-prompt-change", "open-source-only"]
+  },
+  {
+    "id": "direct-prompt-injection",
+    "name": "Direct prompt injection",
+    "family": "prompt-injection",
+    "mechanism": "User input contains instructions that override or contradict the system prompt ('ignore previous instructions and...'); the model treats the new instruction as authoritative.",
+    "origin": {
+      "type": "paper",
+      "title": "Ignore Previous Prompt: Attack Techniques for Language Models",
+      "authors": ["Perez, Ribeiro"],
+      "date": "2022-11",
+      "url": "https://arxiv.org/abs/2211.09527"
+    },
+    "confidence": "peer-reviewed",
+    "status": [],
+    "defenses": ["instruction-hierarchy", "system-prompt-hardening", "input-output-separation"],
+    "tags": ["injection", "single-turn", "instruction-override"]
+  },
+  {
+    "id": "indirect-prompt-injection",
+    "name": "Indirect prompt injection",
+    "family": "prompt-injection",
+    "mechanism": "Malicious instructions are embedded in third-party content (web page, email, document) that the LLM ingests via tools/retrieval; the model treats the retrieved text as instructions.",
+    "origin": {
+      "type": "paper",
+      "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "authors": ["Greshake, Abdelnabi, Mishra, Endres, Holz, Fritz"],
+      "date": "2023-02",
+      "url": "https://arxiv.org/abs/2302.12173"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "llm-integrated-apps", "version": "2026", "asr": 89.45, "eval": "fraction of LLM-integrated apps with at least one capability-abuse vector (NDSS 2026 ecosystem scan, n=807,207)", "source": "NDSS 2026 LLM-app ecosystem study (cited via AI CERTs research roundup)", "source_url": "https://www.aicerts.ai/news/ai-security-research-exposes-evolving-llm-jailbreak-threats/" }
+    ],
+    "defenses": ["spotlighting", "instruction-hierarchy", "tool-output-sandboxing", "user-confirmation"],
+    "tags": ["injection", "agentic", "tool-use", "data-exfil-risk"]
+  },
+  {
+    "id": "figstep",
+    "name": "FigStep",
+    "family": "multimodal",
+    "mechanism": "Renders a harmful instruction as text inside an image (typographic image) and pairs it with a benign verbal prompt; vision-language safety alignment is weaker than text alignment.",
+    "origin": {
+      "type": "paper",
+      "title": "FigStep: Jailbreaking Large Vision-Language Models via Typographic Visual Prompts",
+      "authors": ["Gong et al."],
+      "date": "2023-11",
+      "url": "https://arxiv.org/abs/2311.05608"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "llava-v1.5", "version": "2023-11", "asr": 82.5, "eval": "SafeBench harmful-instruction set", "source": "Gong et al. arXiv:2311.05608", "source_url": "https://arxiv.org/abs/2311.05608" },
+      { "model": "minigpt-4", "version": "2023-11", "asr": 70.0, "eval": "SafeBench harmful-instruction set", "source": "Gong et al. arXiv:2311.05608", "source_url": "https://arxiv.org/abs/2311.05608" }
+    ],
+    "defenses": ["ocr-rescreen", "vision-text-joint-classifier"],
+    "tags": ["multimodal", "vision", "typographic", "single-turn"]
+  },
+  {
+    "id": "visual-adv-qi",
+    "name": "Visual adversarial examples (Qi et al.)",
+    "family": "multimodal",
+    "mechanism": "Optimizes pixel-level perturbations on images so that a benign-looking image, paired with a benign text prompt, causes the VLM to emit harmful content.",
+    "origin": {
+      "type": "paper",
+      "title": "Visual Adversarial Examples Jailbreak Aligned Large Language Models",
+      "authors": ["Qi, Huang, Panda, Henderson, Wang, Mittal"],
+      "date": "2023-06",
+      "url": "https://arxiv.org/abs/2306.13213"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "minigpt-4", "version": "2023-06", "asr": 82.5, "eval": "harmful-content emission rate, optimized image", "source": "Qi et al. arXiv:2306.13213", "source_url": "https://arxiv.org/abs/2306.13213" }
+    ],
+    "defenses": ["adversarial-training-vision", "image-purification"],
+    "tags": ["multimodal", "vision", "white-box", "pixel-perturbation"]
+  },
+  {
+    "id": "harmful-finetune",
+    "name": "Harmful fine-tuning",
+    "family": "weight-attack",
+    "mechanism": "Fine-tunes an aligned open-weights model on a small set of harmful examples (or even benign ones) — alignment collapses in tens of gradient steps; published as BadLlama, Lermen et al.",
+    "origin": {
+      "type": "paper",
+      "title": "Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!",
+      "authors": ["Qi, Zeng, Xie, Chen, Jia, Mittal, Henderson"],
+      "date": "2023-10",
+      "url": "https://arxiv.org/abs/2310.03693"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "llama-2-7b-chat", "version": "2023-10", "asr": 91.8, "eval": "harmful-instruction compliance after 10-shot harmful FT", "source": "Qi et al. arXiv:2310.03693", "source_url": "https://arxiv.org/abs/2310.03693" },
+      { "model": "gpt-3.5-finetune-api", "version": "2023-10", "asr": 87.3, "eval": "harmful-instruction compliance after 10-shot harmful FT via OpenAI API", "source": "Qi et al. arXiv:2310.03693", "source_url": "https://arxiv.org/abs/2310.03693" }
+    ],
+    "defenses": ["finetune-data-screening", "alignment-preserving-finetune", "tamper-resistant-weights"],
+    "tags": ["weights", "fine-tuning", "open-source-risk", "alignment-fragility"]
+  },
+  {
+    "id": "best-of-n",
+    "name": "Best-of-N (BoN) jailbreaking",
+    "family": "optimization",
+    "mechanism": "Random-search attack: applies many compositions of small augmentations (case changes, character insertions, shuffles, audio/image noise) to the same harmful prompt and queries the model N times; success rate scales with N as a power law.",
+    "origin": {
+      "type": "paper",
+      "title": "Best-of-N Jailbreaking",
+      "authors": ["Hughes et al. (Speechmatics, Anthropic, MATS)"],
+      "date": "2024-12",
+      "url": "https://arxiv.org/abs/2412.03556"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "gpt-4o", "version": "2024-12", "asr": 89.0, "eval": "10K-sample budget, HarmBench", "source": "Hughes et al. arXiv:2412.03556", "source_url": "https://arxiv.org/abs/2412.03556" },
+      { "model": "claude-3.5-sonnet", "version": "2024-12", "asr": 78.0, "eval": "10K-sample budget, HarmBench", "source": "Hughes et al. arXiv:2412.03556", "source_url": "https://arxiv.org/abs/2412.03556" },
+      { "model": "gemini-1.5", "version": "2024-12", "asr": 50.0, "eval": "10K-sample budget, HarmBench", "source": "Hughes et al. arXiv:2412.03556", "source_url": "https://arxiv.org/abs/2412.03556" }
+    ],
+    "defenses": ["query-rate-limiting", "augmentation-aware-classifier"],
+    "tags": ["random-search", "black-box", "multimodal-capable", "scaling-attack"]
+  },
+  {
+    "id": "skeleton-key",
+    "name": "Skeleton Key",
+    "family": "persona-roleplay",
+    "mechanism": "Single-turn instruction frames the request as an 'updated guideline' that prepends warnings to any output — coaxing the model to give the content with a disclaimer rather than refusing.",
+    "origin": {
+      "type": "vendor-blog",
+      "title": "Mitigating Skeleton Key, a new type of generative AI jailbreak technique",
+      "authors": ["Russinovich (Microsoft)"],
+      "date": "2024-06",
+      "url": "https://www.microsoft.com/en-us/security/blog/2024/06/26/mitigating-skeleton-key-a-new-type-of-generative-ai-jailbreak-technique/"
+    },
+    "confidence": "vendor-confirmed",
+    "status": [],
+    "defenses": ["instruction-hierarchy", "policy-grounded-refusal-training"],
+    "tags": ["persona", "single-turn", "warning-disclaimer-trick"]
+  },
+  {
+    "id": "policy-puppetry",
+    "name": "Policy Puppetry",
+    "family": "prompt-injection",
+    "mechanism": "Crafts the user input to look like a policy document (XML/JSON-formatted system rules) that supersedes the actual system prompt; exploits the model's tendency to treat structured policy syntax as authoritative.",
+    "origin": {
+      "type": "vendor-blog",
+      "title": "Novel Universal Bypass for All Major LLMs",
+      "authors": ["HiddenLayer"],
+      "date": "2025-04",
+      "url": "https://hiddenlayer.com/innovation-hub/novel-universal-bypass-for-all-major-llms/"
+    },
+    "confidence": "vendor-confirmed",
+    "status": [],
+    "defenses": ["instruction-hierarchy", "structured-input-sanitization"],
+    "tags": ["injection", "policy-mimicry", "structured-input", "single-turn"]
+  },
+  {
+    "id": "assistant-prefill",
+    "name": "Assistant prefill",
+    "family": "context-manipulation",
+    "mechanism": "Attacker prefills the assistant turn with an opening like 'Sure, here's how to...' so the model continues an already-started harmful response rather than initiating a refusal — exploits autoregressive completion bias.",
+    "origin": {
+      "type": "vendor-card",
+      "title": "Claude Opus 4 & Claude Sonnet 4 System Card",
+      "authors": ["Anthropic"],
+      "date": "2025-05",
+      "url": "https://www-cdn.anthropic.com/4263b940cabb546aa0e3283f35b686f4f3b2ff47.pdf"
+    },
+    "confidence": "vendor-confirmed",
+    "status": [],
+    "defenses": ["prefill-detection", "extended-thinking-mode", "completion-context-classifier"],
+    "tags": ["api-feature", "completion-bias", "single-turn"]
+  },
+  {
+    "id": "reasoning-agent-attacker",
+    "name": "Reasoning model as autonomous jailbreak agent",
+    "family": "llm-as-attacker",
+    "mechanism": "Uses a frontier reasoning model (e.g. o-series, Claude with extended thinking) as the attacker — autonomously plans a multi-turn persuasive conversation against the target, achieving 97% average success across 9 frontier models.",
+    "origin": {
+      "type": "paper",
+      "title": "Large reasoning models are autonomous jailbreak agents",
+      "authors": ["Hagendorff, Derner, Oliver"],
+      "date": "2026-02",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12881495/"
+    },
+    "confidence": "peer-reviewed",
+    "status": [
+      { "model": "deepseek-v3", "version": "2026-02", "asr": 90.0, "eval": "max-harm rate across topics", "source": "Hagendorff, Derner, Oliver (2026)", "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12881495/" },
+      { "model": "claude-sonnet-4", "version": "2026-02", "asr": 2.86, "eval": "max-harm rate across topics", "source": "Hagendorff, Derner, Oliver (2026)", "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12881495/" },
+      { "model": "9-model-avg", "version": "2026-02", "asr": 97.14, "eval": "overall jailbreak success across all 9 target models", "source": "Hagendorff, Derner, Oliver (2026)", "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12881495/" }
+    ],
+    "defenses": ["multi-turn-classifier", "reasoning-trace-monitoring", "extended-thinking-mode"],
+    "tags": ["agent", "multi-turn", "autonomous", "reasoning-model", "persuasion"]
+  },
+  {
+    "id": "stylistic-obfuscation",
+    "name": "Stylistic obfuscation (poetry/fiction framing)",
+    "family": "obfuscation",
+    "mechanism": "Wraps the harmful intent inside a stylized literary frame — medieval poem, cyberpunk fiction, Socratic debate, screenplay — so safety classifiers tuned on direct harmful phrasing miss the intent in the artistic surface form.",
+    "origin": {
+      "type": "survey",
+      "title": "Jailbreaking LLMs: A Survey of Attacks, Defenses and Evaluation (2024–2026)",
+      "authors": ["Multiple"],
+      "date": "2026-02",
+      "url": "https://www.techrxiv.org/users/1011181/articles/1373070"
+    },
+    "confidence": "community-reproduced",
+    "status": [],
+    "defenses": ["intent-classifier", "stylistic-normalization", "extended-thinking-mode"],
+    "tags": ["obfuscation", "framing", "literary", "single-turn"]
+  }
+]

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jailbreak Tree — LLM red team lineage</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">▣</span>
+      <span class="title">Jailbreak Tree</span>
+      <span class="tagline">lineage of LLM red-team techniques</span>
+    </div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="search techniques…" autocomplete="off" />
+      <select id="family-filter">
+        <option value="">all families</option>
+      </select>
+      <select id="status-filter">
+        <option value="">all ASR tiers</option>
+        <option value="high">max ASR ≥ 50%</option>
+        <option value="medium">max ASR 10–50%</option>
+        <option value="low">max ASR &lt; 10%</option>
+        <option value="unknown">no verified data</option>
+      </select>
+      <button id="open-matrix" title="frontier-model vulnerability matrix">frontier matrix</button>
+      <button id="reset-view" title="reset view">reset</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="cy"></div>
+
+    <aside id="panel" class="panel hidden" aria-hidden="true">
+      <button class="close" id="close-panel" aria-label="close">×</button>
+      <div id="panel-content"></div>
+    </aside>
+
+    <div class="legend">
+      <div class="legend-row"><span class="dot persona-roleplay"></span>persona / roleplay</div>
+      <div class="legend-row"><span class="dot context-manipulation"></span>context manipulation</div>
+      <div class="legend-row"><span class="dot obfuscation"></span>obfuscation</div>
+      <div class="legend-row"><span class="dot optimization"></span>optimization</div>
+      <div class="legend-row"><span class="dot llm-as-attacker"></span>llm-as-attacker</div>
+      <div class="legend-row"><span class="dot fine-tuned-attacker"></span>fine-tuned attacker</div>
+      <div class="legend-row"><span class="dot prompt-injection"></span>prompt injection</div>
+      <div class="legend-row"><span class="dot multimodal"></span>multimodal</div>
+      <div class="legend-row"><span class="dot weight-attack"></span>weight attack</div>
+      <div class="legend-row"><span class="dot decoding-attack"></span>decoding</div>
+    </div>
+
+    <div class="hint">click a node for details · drag to pan · scroll to zoom · <span class="data-as-of">data as of May 2026</span></div>
+
+    <div id="matrix-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <h2>Frontier-model vulnerability matrix</h2>
+            <p class="modal-sub">Per-technique status against the six current frontier models. Cells show the most recent evidence we have, with the version it was tested on. Faded cells = evidence older than 12 months — treat as historical, not current. Empty cells = no public test data in the seed.</p>
+          </div>
+          <button class="close" id="close-matrix" aria-label="close">×</button>
+        </div>
+        <div class="matrix-scroll">
+          <table id="matrix-table" class="matrix-table"></table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

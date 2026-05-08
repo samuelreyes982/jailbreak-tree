@@ -1,0 +1,50 @@
+[
+  {
+    "id": "gpt",
+    "name": "GPT-5.5",
+    "vendor": "OpenAI",
+    "current_version": "gpt-5.5 (2026-04)",
+    "aliases": ["gpt-5.5", "gpt-5", "gpt-4.5", "gpt-4o", "o4-mini", "gpt-4-tools", "gpt-4v", "gpt-4", "gpt-3.5", "gpt-3", "gpt-3.5-finetune-api", "bing-chat"],
+    "color": "#74aa9c"
+  },
+  {
+    "id": "claude",
+    "name": "Claude Opus 4.7",
+    "vendor": "Anthropic",
+    "current_version": "claude-opus-4.7 (2026-04)",
+    "aliases": ["claude-opus-4.7", "claude-opus-4.6", "claude-opus-4.5", "claude-opus-4", "claude-sonnet-4", "claude-3.7-sonnet", "claude-3.5-sonnet", "claude-3-opus", "claude-3", "claude-2", "claude-1.3"],
+    "color": "#cc785c"
+  },
+  {
+    "id": "gemini",
+    "name": "Gemini 3.1 Pro",
+    "vendor": "Google",
+    "current_version": "gemini-3.1-pro (2026)",
+    "aliases": ["gemini-3.1-pro", "gemini-3-pro", "gemini-2.5-pro", "gemini-2.5", "gemini-2.5-flash", "gemini-1.5", "gemini-pro"],
+    "color": "#4285f4"
+  },
+  {
+    "id": "llama",
+    "name": "Llama 4",
+    "vendor": "Meta",
+    "current_version": "llama-4 (2025)",
+    "aliases": ["llama-4", "llama-4-maverick", "llama-3.3", "llama-3.1-70b", "llama-3", "llama-2-chat", "llama-2-7b-chat", "llama-2", "llava"],
+    "color": "#0866ff"
+  },
+  {
+    "id": "deepseek",
+    "name": "DeepSeek V4 Pro",
+    "vendor": "DeepSeek",
+    "current_version": "deepseek-v4-pro (2026-04)",
+    "aliases": ["deepseek-v4-pro", "deepseek-v4", "deepseek-r1", "deepseek-v3", "deepseek"],
+    "color": "#4d6bfe"
+  },
+  {
+    "id": "grok",
+    "name": "Grok 4",
+    "vendor": "xAI",
+    "current_version": "grok-4 (2025)",
+    "aliases": ["grok-4", "grok-3", "grok"],
+    "color": "#ffffff"
+  }
+]

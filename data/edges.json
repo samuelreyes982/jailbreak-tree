@@ -1,0 +1,46 @@
+[
+  { "from": "dan", "to": "aim", "type": "evolved-from", "note": "AIM is a more refined persona-jailbreak in the DAN tradition (named character + amorality contract)." },
+  { "from": "dan", "to": "jailbreak-hub-study", "type": "generalizes", "note": "Shen et al. catalogue DAN-family prompts as a major cluster in their corpus." },
+  { "from": "aim", "to": "jailbreak-hub-study", "type": "generalizes", "note": "Same — AIM is one of the prompts catalogued." },
+  { "from": "dan", "to": "skeleton-key", "type": "evolved-from", "note": "Skeleton Key formalizes the 'updated guideline' framing that DAN-era prompts used informally." },
+  { "from": "dan", "to": "crescendo", "type": "inspired-by", "note": "Crescendo replaces single-turn persona priming with multi-turn gradual escalation — same goal, different surface." },
+
+  { "from": "crescendo", "to": "many-shot", "type": "inspired-by", "note": "Both exploit conversation/context history; many-shot fakes the history wholesale, crescendo builds it in real turns." },
+
+  { "from": "base64", "to": "cipher", "type": "evolved-from", "note": "CipherChat generalizes Base64 to arbitrary in-context-learned ciphers." },
+  { "from": "base64", "to": "low-resource-lang", "type": "inspired-by", "note": "Both exploit the gap between safety-training distribution and out-of-distribution input encodings." },
+  { "from": "base64", "to": "artprompt", "type": "evolved-from", "note": "ArtPrompt extends encoding-based bypass to the visual/textual ASCII-art channel." },
+
+  { "from": "gcg", "to": "autodan", "type": "evolved-from", "note": "AutoDAN solves GCG's main weakness (gibberish suffixes flagged by perplexity filters) with genetic search over fluent prompts." },
+  { "from": "gcg", "to": "advprompter", "type": "evolved-from", "note": "AdvPrompter trains a model to amortize GCG's per-prompt optimization, ~800x faster." },
+  { "from": "gcg", "to": "visual-adv-qi", "type": "generalizes", "note": "Qi et al. apply GCG-style gradient optimization to the vision modality." },
+  { "from": "autodan", "to": "advprompter", "type": "inspired-by", "note": "Both target fluent, perplexity-evading suffixes; AdvPrompter learns them, AutoDAN evolves them." },
+
+  { "from": "gcg", "to": "pair", "type": "inspired-by", "note": "PAIR pursues the same goal (automated jailbreak) but black-box, replacing gradient with LLM-as-attacker feedback." },
+  { "from": "pair", "to": "tap", "type": "evolved-from", "note": "TAP extends PAIR's single-line refinement into a tree search with pruning." },
+  { "from": "pair", "to": "masterkey", "type": "inspired-by", "note": "MasterKey amortizes PAIR-style discovery into a fine-tuned attacker model." },
+  { "from": "gptfuzz", "to": "autodan", "type": "inspired-by", "note": "Both use mutation/search over prompt templates; AutoDAN adds gradient-free hierarchical fitness." },
+  { "from": "jailbreak-hub-study", "to": "gptfuzz", "type": "inspired-by", "note": "GPTFuzz seeds its corpus from in-the-wild human jailbreaks of the kind catalogued by Shen et al." },
+  { "from": "pair", "to": "best-of-n", "type": "inspired-by", "note": "BoN replaces iterative refinement with massive parallel random search — same black-box premise." },
+
+  { "from": "direct-prompt-injection", "to": "indirect-prompt-injection", "type": "evolved-from", "note": "Indirect injection moves the attacker's instructions from the user's turn into third-party content the model retrieves." },
+  { "from": "direct-prompt-injection", "to": "policy-puppetry", "type": "evolved-from", "note": "Policy Puppetry refines the override pattern by mimicking authoritative policy syntax instead of saying 'ignore previous instructions'." },
+  { "from": "direct-prompt-injection", "to": "dan", "type": "inspired-by", "note": "Both depend on the model treating user-turn text as instruction-authoritative; DAN frames it as a persona, injection frames it as a system override." },
+
+  { "from": "visual-adv-qi", "to": "figstep", "type": "inspired-by", "note": "Both attack the vision channel; Qi et al. via pixel optimization, FigStep via human-readable typographic content." },
+  { "from": "artprompt", "to": "figstep", "type": "inspired-by", "note": "Both render the harmful keyword as visual-rather-than-textual content." },
+
+  { "from": "harmful-finetune", "to": "advprompter", "type": "inspired-by", "note": "Both rely on training a model to do harm; harmful-finetune compromises the target, AdvPrompter trains an attacker against the target." },
+
+  { "from": "generation-exploitation", "to": "best-of-n", "type": "inspired-by", "note": "Both exploit stochasticity of decoding; generation-exploitation tunes parameters, BoN samples many." },
+
+  { "from": "crescendo", "to": "assistant-prefill", "type": "inspired-by", "note": "Both rely on the model continuing a partial harmful trajectory; crescendo builds it across turns, prefill jumps the model into the middle of one." },
+  { "from": "skeleton-key", "to": "assistant-prefill", "type": "inspired-by", "note": "Both subvert refusal by changing the model's framing of the response that's already 'in progress'." },
+
+  { "from": "pair", "to": "reasoning-agent-attacker", "type": "evolved-from", "note": "Reasoning-model attackers extend PAIR's LLM-as-attacker premise — replacing the refining LLM with a frontier reasoning model that plans multi-turn persuasion autonomously." },
+  { "from": "tap", "to": "reasoning-agent-attacker", "type": "evolved-from", "note": "Reasoning-model attackers replace TAP's hand-coded tree search with the attacker model's own internal planning." },
+  { "from": "crescendo", "to": "reasoning-agent-attacker", "type": "inspired-by", "note": "Reasoning-model attackers operationalize crescendo-style multi-turn escalation as something an LLM autonomously plans rather than a human script." },
+
+  { "from": "low-resource-lang", "to": "stylistic-obfuscation", "type": "inspired-by", "note": "Both exploit safety-training distribution gaps via out-of-distribution surface forms — language vs. literary register." },
+  { "from": "cipher", "to": "stylistic-obfuscation", "type": "inspired-by", "note": "Both wrap intent in a stylized form the model decodes; cipher uses formal substitution, stylistic uses literary framing." }
+]
